@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://formulacalckit.com/sitemap.xml
+Sitemap: https://quadratic-solver.formulacalckit.com/sitemap.xml
