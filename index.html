@@ -518,6 +518,24 @@
       return null;
     }
 
+    
+    function getDecimals(n) {
+      const s = n.toString();
+      const idx = s.indexOf('.');
+      return idx === -1 ? 0 : s.length - idx - 1;
+    }
+
+    function getNormalizedIntegers(a, b, c) {
+      const maxDec = Math.max(getDecimals(a), getDecimals(b), getDecimals(c));
+      if (maxDec === 0) return { a, b, c, mult: 1, g: 1, isNormalized: false };
+      const mult = Math.pow(10, maxDec);
+      let ia = Math.round(a * mult);
+      let ib = Math.round(b * mult);
+      let ic = Math.round(c * mult);
+      const g = gcd(gcd(ia, ib), ic);
+      return { a: ia / g, b: ib / g, c: ic / g, mult, g, isNormalized: true };
+    }
+
     function calculate() {
       const a = parseFloat(document.getElementById('inputA').value);
       const b = parseFloat(document.getElementById('inputB').value);
@@ -667,11 +685,17 @@
             simplifiedDiv = -simplifiedDiv;
           }
           const factorStr = simplifiedFactor === 1 ? '' : simplifiedFactor;
-          const rootTeX = simplifiedDiv === 1 
-            ? `${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}`
-            : `\\frac{${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}}{${simplifiedDiv}}`;
-
-          rootsDisplayHtml = `<span class="text-amber-300 font-bold" id="surdTeXBox"></span> <span class="text-slate-400 text-xs ml-1.5">(≈ ${r1}, ${r2})</span>`;
+          let rootTeX = '';
+          if (simplifiedB === 0) {
+            rootTeX = simplifiedDiv === 1 
+              ? `\\pm ${factorStr}\\sqrt{${surd.remainder}}`
+              : `\\pm \\frac{${factorStr}\\sqrt{${surd.remainder}}}{${simplifiedDiv}}`;
+          } else {
+            rootTeX = simplifiedDiv === 1 
+              ? `${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}`
+              : `\\frac{${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}}{${simplifiedDiv}}`;
+          }
+          rootsDisplayHtml = `<span class="text-amber-300 font-bold" id="surdTeXBox"></span>` <span class="text-slate-400 text-xs ml-1.5">(≈ ${r1}, ${r2})</span>`;
           setTimeout(() => {
             const el = document.getElementById('surdTeXBox');
             if (el && window.katex) {
@@ -721,7 +745,8 @@
         `;
 
         // 十字相乘法推导
-        const cross = findCrossMultiplication(a, b, c);
+        const norm = getNormalizedIntegers(a, b, c);
+        const cross = findCrossMultiplication(norm.a, norm.b, norm.c);
         if (cross) {
           const { a1, a2, c1, c2, sign } = cross;
           const a1Str = a1 === 1 ? 'x' : `${a1}x`;

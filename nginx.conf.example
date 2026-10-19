@@ -3,12 +3,26 @@ server {
     server_name formulacalckit.com www.formulacalckit.com;
 
     # 若开启了 SSL 证书，请启用以下配置：
-    # listen 443 ssl http2;
+    # listen 443 ssl;
+    # http2 on;
     # ssl_certificate /path/to/fullchain.pem;
     # ssl_certificate_key /path/to/privkey.pem;
 
     root /www/wwwroot/formulacalckit.com; # 替换为您服务器的真实目录
     index index.html;
+
+    # Gzip 静态资源高强度压缩 (秒开加速)
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+    gzip_vary on;
+
+    # 安全响应头
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
 
     location / {
         try_files $uri $uri/ /index.html;
