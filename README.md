@@ -1,2 +1,36 @@
-# quadratic-solver
-一元二次方程求根计算器 - 在线求解器带判别式与详细步骤推导 (Quadratic Equation Solver with Steps &amp; Graph)
+# 一元二次方程求根计算器 (Quadratic Equation Solver with Steps)
+
+> 🎯 **初中中考标准解法 · 公式法 · 配方法 · 因式分解 · Δ判别式推导 · 抛物线图像可视化**  
+> 🌐 **专为流量与 SEO 设计的高频刚需工具**
+
+---
+
+## 📌 项目亮点
+
+1. **中考规范解题步骤**：
+   - 绝非干瘪的单一答案输出！像教师板书一样，清晰罗列 **① 识别系数 ➔ ② 判别式计算 ➔ ③ 代入公式法/配方法 ➔ ④ 约分解出两根**。
+2. **多解法对照学习**：
+   - **公式法**：中考万能通用解法；
+   - **配方法**：详细演示二次项归一、移项、两边加上一次项系数一半的平方、开方全流程；
+   - **因式分解法**：十字相乘拆项，直接展示 $(x-x_1)(x-x_2)=0$；
+   - **韦达定理验算**：自动检验两根之和与两根之积。
+3. **二次函数图像实时可视化**：
+   - 动态 Canvas 绘制对应抛物线 $y = ax^2 + bx + c$；
+   - 直观高亮显示**顶点坐标**与 **X 轴交点（根的位置）**。
+4. **极致极速架构**：
+   - 纯静态无需 Node.js 运行时，毫秒级秒开，兼容 Nginx、Vercel、Cloudflare Pages、GitHub Pages 或宝塔面板。
+
+---
+
+## 🚀 部署指南
+
+### 方式一：上传到自建服务器 (Nginx / 宝塔面板)
+1. 将本项目所有文件上传至网站根目录（如 `/www/wwwroot/formulacalckit.com`）；
+2. 参考 `nginx.conf.example` 配置站点即可极速访问。
+
+### 方式二：Vercel / Cloudflare Pages / GitHub Pages 一键上线
+直接导入该 GitHub 仓库，无需设置任何 Build Command，输出目录为根目录，一秒上线！
+
+---
+
+© 2026 Quadratic Solver. All rights reserved.

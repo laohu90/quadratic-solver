@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name formulacalckit.com www.formulacalckit.com;
+
+    # 若开启了 SSL 证书，请启用以下配置：
+    # listen 443 ssl http2;
+    # ssl_certificate /path/to/fullchain.pem;
+    # ssl_certificate_key /path/to/privkey.pem;
+
+    root /www/wwwroot/formulacalckit.com; # 替换为您服务器的真实目录
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # 静态资源长期缓存加速
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    # 爬虫文件与搜索引擎协议放行
+    location ~* (robots\.txt|sitemap\.xml|google.*\.html) {
+        allow all;
+    }
+}
