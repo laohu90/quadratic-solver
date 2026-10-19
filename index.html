@@ -694,6 +694,264 @@
       }
     }
 
+    
+    function drawCanvas(a, b, c, delta, isLinear, r1, r2) {
+      const canvas = document.getElementById("canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const displayW = rect.width || 500;
+      const displayH = rect.height || 250;
+
+      if (canvas.width !== Math.round(displayW * dpr) || canvas.height !== Math.round(displayH * dpr)) {
+        canvas.width = Math.round(displayW * dpr);
+        canvas.height = Math.round(displayH * dpr);
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      const w = displayW;
+      const h = displayH;
+
+      // Crisp White Canvas Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, h);
+
+      const originX = w / 2;
+      const originY = h / 2;
+
+      const canvasTitle = document.getElementById("canvasTitle");
+      const parabolaDetails = document.getElementById("parabolaDetails");
+
+      if (isLinear) {
+        if (canvasTitle) canvasTitle.textContent = "一次函数直线 (y = bx + c)";
+        if (parabolaDetails) parabolaDetails.textContent = b !== 0 ? `斜率 k=${b}, 截距 b=${c}` : "水平常数直线";
+
+        const scale = 22;
+        // Grid Lines
+        ctx.strokeStyle = "#f1f5f9";
+        ctx.lineWidth = 1;
+        for (let x = -Math.ceil(w / (2 * scale)); x <= Math.ceil(w / (2 * scale)); x++) {
+          const px = originX + x * scale;
+          ctx.beginPath();
+          ctx.moveTo(px, 0);
+          ctx.lineTo(px, h);
+          ctx.stroke();
+        }
+        for (let y = -Math.ceil(h / (2 * scale)); y <= Math.ceil(h / (2 * scale)); y++) {
+          const py = originY - y * scale;
+          ctx.beginPath();
+          ctx.moveTo(0, py);
+          ctx.lineTo(w, py);
+          ctx.stroke();
+        }
+
+        // Axes
+        ctx.strokeStyle = "#475569";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, originY);
+        ctx.lineTo(w, originY);
+        ctx.moveTo(originX, 0);
+        ctx.lineTo(originX, h);
+        ctx.stroke();
+
+        ctx.fillStyle = "#334155";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText("x", w - 14, originY - 6);
+        ctx.fillText("y", originX + 7, 13);
+        ctx.fillText("O", originX - 12, originY + 14);
+
+        // Line
+        ctx.strokeStyle = "#0284c7";
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        const xLeft = (0 - originX) / scale;
+        const yLeft = b * xLeft + c;
+        const xRight = (w - originX) / scale;
+        const yRight = b * xRight + c;
+        ctx.moveTo(0, originY - yLeft * scale);
+        ctx.lineTo(w, originY - yRight * scale);
+        ctx.stroke();
+
+        if (b !== 0) {
+          const rootX = -c / b;
+          const px = originX + rootX * scale;
+          if (px >= 0 && px <= w) {
+            ctx.fillStyle = "#ea580c";
+            ctx.beginPath();
+            ctx.arc(px, originY, 5.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#9a3412";
+            ctx.font = "bold 11px sans-serif";
+            ctx.fillText(`(${rootX.toFixed(2)}, 0)`, px - 18, originY - 8);
+          }
+        }
+        ctx.restore();
+        return;
+      }
+
+      // Parabola: y = ax^2 + bx + c
+      const vx = -b / (2 * a);
+      const vy = (4 * a * c - b * b) / (4 * a);
+
+      if (canvasTitle) canvasTitle.textContent = "二次函数抛物线 (y = ax² + bx + c)";
+      if (parabolaDetails) parabolaDetails.textContent = `顶点: (${vx.toFixed(2)}, ${vy.toFixed(2)})`;
+
+      let maxAbsX = Math.max(Math.abs(vx) + 2.5, 5);
+      if (delta >= 0 && r1 !== null && r2 !== null) {
+        maxAbsX = Math.max(maxAbsX, Math.abs(r1) + 2.5, Math.abs(r2) + 2.5);
+      }
+      const maxAbsY = Math.max(Math.abs(vy) + 3, Math.abs(c) + 2.5, 6);
+
+      const scaleX = (w * 0.42) / maxAbsX;
+      const scaleY = (h * 0.42) / maxAbsY;
+      const scale = Math.min(scaleX, scaleY);
+
+      // Grid lines
+      ctx.strokeStyle = "#f1f5f9";
+      ctx.lineWidth = 1;
+      const step = Math.max(1, Math.round(maxAbsX / 5));
+      for (let x = -Math.ceil(maxAbsX); x <= Math.ceil(maxAbsX); x += step) {
+        if (x === 0) continue;
+        const px = originX + x * scale;
+        ctx.beginPath();
+        ctx.moveTo(px, 0);
+        ctx.lineTo(px, h);
+        ctx.stroke();
+      }
+      for (let y = -Math.ceil(maxAbsY); y <= Math.ceil(maxAbsY); y += step) {
+        if (y === 0) continue;
+        const py = originY - y * scale;
+        ctx.beginPath();
+        ctx.moveTo(0, py);
+        ctx.lineTo(w, py);
+        ctx.stroke();
+      }
+
+      // Main Axes with Arrowheads
+      ctx.strokeStyle = "#475569";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      // X Axis
+      ctx.moveTo(0, originY);
+      ctx.lineTo(w, originY);
+      ctx.lineTo(w - 7, originY - 4);
+      ctx.moveTo(w, originY);
+      ctx.lineTo(w - 7, originY + 4);
+      // Y Axis
+      ctx.moveTo(originX, h);
+      ctx.lineTo(originX, 0);
+      ctx.lineTo(originX - 4, 7);
+      ctx.moveTo(originX, 0);
+      ctx.lineTo(originX + 4, 7);
+      ctx.stroke();
+
+      // Axis Labels
+      ctx.fillStyle = "#334155";
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText("x", w - 14, originY - 7);
+      ctx.fillText("y", originX + 7, 13);
+      ctx.fillText("O", originX - 12, originY + 14);
+
+      // Symmetry Axis (dashed line: x = vx)
+      const pvx = originX + vx * scale;
+      if (pvx >= 0 && pvx <= w) {
+        ctx.strokeStyle = "#6366f1";
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pvx, 0);
+        ctx.lineTo(pvx, h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#4f46e5";
+        ctx.font = "11px sans-serif";
+        ctx.fillText(`对称轴 x=${vx.toFixed(2)}`, pvx + 4, h - 10);
+      }
+
+      // Parabola Curve
+      ctx.strokeStyle = "#2563eb";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      let started = false;
+      for (let px = 0; px <= w; px += 2) {
+        const mathX = (px - originX) / scale;
+        const mathY = a * mathX * mathX + b * mathX + c;
+        const py = originY - mathY * scale;
+        if (!started) {
+          ctx.moveTo(px, py);
+          started = true;
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+
+      // Vertex Point
+      const pvy = originY - vy * scale;
+      if (pvx >= 0 && pvx <= w && pvy >= 0 && pvy <= h) {
+        ctx.fillStyle = "#2563eb";
+        ctx.beginPath();
+        ctx.arc(pvx, pvy, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#1e3a8a";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(`顶点 (${vx.toFixed(2)}, ${vy.toFixed(2)})`, pvx + 7, a > 0 ? pvy + 14 : pvy - 8);
+      }
+
+      // Intercept with Y axis (0, c)
+      const pcy = originY - c * scale;
+      if (pcy >= 0 && pcy <= h) {
+        ctx.fillStyle = "#9333ea";
+        ctx.beginPath();
+        ctx.arc(originX, pcy, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#6b21a8";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(`(0, ${c})`, originX + 7, pcy - 4);
+      }
+
+      // Roots on X Axis
+      if (delta > 0 && r1 !== null && r2 !== null) {
+        const sqrtD = Math.sqrt(delta);
+        const x1 = (-b + sqrtD) / (2 * a);
+        const x2 = (-b - sqrtD) / (2 * a);
+        const px1 = originX + x1 * scale;
+        const px2 = originX + x2 * scale;
+
+        [px1, px2].forEach((px, idx) => {
+          if (px >= 0 && px <= w) {
+            ctx.fillStyle = "#ea580c";
+            ctx.beginPath();
+            ctx.arc(px, originY, 5.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#9a3412";
+            ctx.font = "bold 11px sans-serif";
+            const rx = idx === 0 ? x1 : x2;
+            ctx.fillText(`x${idx + 1}=${rx.toFixed(2)}`, px - 18, originY + (a > 0 ? -8 : 16));
+          }
+        });
+      } else if (delta === 0 && r1 !== null) {
+        const rootX = -b / (2 * a);
+        const px = originX + rootX * scale;
+        if (px >= 0 && px <= w) {
+          ctx.fillStyle = "#ea580c";
+          ctx.beginPath();
+          ctx.arc(px, originY, 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#9a3412";
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText(`重根 x=${rootX.toFixed(2)}`, px - 20, originY - 9);
+        }
+      }
+
+      ctx.restore();
+    }
+
     function calculate() {
       const a = parseFloat(document.getElementById('inputA').value) || 0;
       const b = parseFloat(document.getElementById('inputB').value) || 0;
