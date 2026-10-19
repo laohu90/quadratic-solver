@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Favicon 图标 (避免 404) -->
+  <!-- Favicon 图标 -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234f46e5'/><text x='50%' y='67%' font-size='56' font-weight='bold' fill='white' text-anchor='middle' font-family='monospace'>x²</text></svg>">
 
-  <!-- SEO 核心标签 (针对中考搜索词与长尾词全量覆盖) -->
-  <title>一元二次方程求根计算器 | 在线求解带详细步骤与判别式 (ax²+bx+c=0)</title>
-  <meta name="description" content="全网最专业的初中一元二次方程在线求根计算器。不仅给出最终实数根或最简根号解，更提供详尽的初中中考标准解题步骤（公式法、配方法、因式分解十字相乘、直接开平方），计算Δ判别式、韦达定理验算与二次函数抛物线图像可视化。">
-  <meta name="keywords" content="一元二次方程计算器,一元二次方程求根公式,判别式计算器,配方法解一元二次方程,公式法解方程步骤,初中数学计算器,二次函数图像,初中代数公式,直接开平方法,十字相乘法,quadratic equation solver">
+  <!-- SEO 核心标签 -->
+  <title>一元二次方程求根计算器 | 智能步骤推导·实数与虚根·抛物线画板 (ax²+bx+c=0)</title>
+  <meta name="description" content="全网功能最全的中学一元二次方程在线求根计算器。不仅支持公式法、配方法、十字相乘因式分解板书推导与最简根式化简，更提供高中复数虚根解、二次函数全景性质分析、智能整式方程一键解析与已知两根反求方程。">
+  <meta name="keywords" content="一元二次方程计算器,一元二次方程求根公式,判别式计算器,配方法解方程步骤,十字相乘法,复数虚根,二次函数对称轴顶点,已知两根反求方程,初中数学中考">
   <meta name="author" content="FormulaCalcKit">
 
   <!-- OpenGraph 社交卡片 -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="一元二次方程求根计算器 | 在线求解带详细步骤与判别式 (中考标准)">
-  <meta property="og:description" content="输入 a, b, c，一键获取一元二次方程的判别式 Δ、公式法、配方法推导步骤、最简根号解与二次函数抛物线。">
+  <meta property="og:title" content="一元二次方程求根计算器 | 智能步骤推导·复数虚根·二次函数全景 (中考与高中规范)">
+  <meta property="og:description" content="输入 a,b,c 或直接粘贴方程，一键获取判别式 Δ、公式法、配方法推导步骤、最简根式、共轭虚根与抛物线图像。">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,15 +26,15 @@
   <!-- Lucide 图标库 -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Schema.org 结构化数据 (Google 搜索富媒体计算器卡片) -->
+  <!-- Schema.org 结构化数据 -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "一元二次方程求根计算器",
+    "name": "一元二次方程求根计算器与智能推导平台",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
-    "description": "专业一元二次方程求解与步骤推导计算器，支持公式法、配方法、因式分解、最简二次根式与抛物线图像绘制。",
+    "description": "专业一元二次方程求解与步骤推导计算器，支持公式法、配方法、十字相乘因式分解、共轭虚根、最简二次根式与二次函数抛物线图像绘制。",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -45,13 +45,11 @@
 
   <style>
     .math-font { font-family: 'KaTeX_Math', 'Times New Roman', serif; }
-    /* 自定义滚动条 */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-    /* 打印样式适配 (试卷/讲义黑白输出) */
     @media print {
       body { background: #ffffff !important; color: #000000 !important; }
       header, footer, .no-print, button { display: none !important; }
@@ -80,15 +78,25 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-base sm:text-lg text-white tracking-tight">一元二次方程求根计算器</h1>
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-              中考标准规范版
+            <span id="modeBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              初中中考模式
             </span>
           </div>
-          <p class="text-xs text-slate-400">公式法 · 配方法 · 十字相乘因式分解 · 直接开平方法 · 判别式 Δ · 抛物线绘制</p>
+          <p class="text-xs text-slate-400">公式法 · 配方法 · 十字相乘 · 共轭虚根 · 抛物线全景 · 逆向反求方程</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
+        <!-- 模式切换开关 -->
+        <div class="flex items-center bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs font-medium">
+          <button onclick="setMathScope('middle')" id="btnScopeMiddle" class="px-2.5 py-1 rounded-md bg-indigo-600 text-white transition cursor-pointer">
+            初中实数域
+          </button>
+          <button onclick="setMathScope('high')" id="btnScopeHigh" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition cursor-pointer">
+            高中复数域
+          </button>
+        </div>
+
         <button onclick="window.print()" class="hidden sm:flex items-center gap-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition cursor-pointer">
           <i data-lucide="printer" class="w-3.5 h-3.5"></i> 打印试卷格式
         </button>
@@ -99,25 +107,33 @@
   <!-- 主体区域 -->
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
     
-    <!-- 顶部引言 Banner -->
-    <div class="bg-gradient-to-r from-indigo-950/60 via-slate-900 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-        <div class="space-y-2">
-          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 text-xs font-semibold">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 初中数学核心工具 · 严格按照人教版/苏教版/北师大版中考规范
+    <!-- 顶部智能粘贴与搜索栏 (对标超越传统输入) -->
+    <div class="bg-gradient-to-r from-indigo-950/70 via-slate-900 to-slate-900 border border-indigo-500/30 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 text-xs font-semibold mb-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 智能方程识别 · 支持任意整式粘贴
           </div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            输入方程系数，一秒输出判别式与完整中考板书推导步骤
+          <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">
+            直接粘贴完整方程或在下方逐项微调
           </h2>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-            标准一般形式：<span id="headerEqKaTeX" class="font-bold text-indigo-300">ax² + bx + c = 0 (a ≠ 0)</span>。
-            系统不仅计算精确根，更输出<strong>最简二次根式（根号最简化）</strong>、<strong>十字相乘分解图解</strong>与韦达定理验算。
-          </p>
         </div>
 
-        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 text-xs text-slate-400 space-y-1">
-          <div class="text-slate-300 font-bold mb-1">求根公式：</div>
-          <div id="headerFormulaKaTeX" class="text-sm font-semibold text-indigo-300 min-h-[24px]"></div>
+        <div class="w-full md:w-auto flex-1 max-w-xl">
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              id="smartInput"
+              placeholder="例如直接粘贴：2x² + 3x = 5 或 x^2 - 5x + 6 = 0"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            />
+            <button
+              onclick="handleSmartParse()"
+              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 shrink-0"
+            >
+              <i data-lucide="wand-2" class="w-3.5 h-3.5"></i> 智能提取系数
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -125,14 +141,19 @@
     <!-- 核心计算器卡片 -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
-      <!-- 左侧：输入与预设 -->
+      <!-- 左侧：输入、重置与预设 -->
       <div class="lg:col-span-5 space-y-5">
         <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
               <i data-lucide="calculator" class="w-4 h-4 text-indigo-400"></i> 输入方程各项系数
             </h3>
-            <span class="text-xs text-slate-500 font-normal">支持正数、负数与整数</span>
+            
+            <div class="flex items-center gap-2">
+              <button onclick="resetCalculator()" class="text-xs text-slate-400 hover:text-rose-400 transition flex items-center gap-1 cursor-pointer">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> 一键重置清空
+              </button>
+            </div>
           </div>
 
           <div class="space-y-4">
@@ -142,7 +163,7 @@
                 <span class="text-[11px] text-slate-500 font-mono">对应 ax²</span>
               </label>
               <div class="flex items-center gap-2">
-                <input type="number" id="inputA" value="1" step="any" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                <input type="number" id="inputA" value="1" step="any" inputmode="decimal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
                 <div class="flex flex-col gap-1">
                   <button onclick="adjust('inputA', 1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">+</button>
                   <button onclick="adjust('inputA', -1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">-</button>
@@ -156,7 +177,7 @@
                 <span class="text-[11px] text-slate-500 font-mono">对应 bx</span>
               </label>
               <div class="flex items-center gap-2">
-                <input type="number" id="inputB" value="-5" step="any" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                <input type="number" id="inputB" value="-5" step="any" inputmode="decimal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
                 <div class="flex flex-col gap-1">
                   <button onclick="adjust('inputB', 1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">+</button>
                   <button onclick="adjust('inputB', -1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">-</button>
@@ -170,7 +191,7 @@
                 <span class="text-[11px] text-slate-500 font-mono">对应 c</span>
               </label>
               <div class="flex items-center gap-2">
-                <input type="number" id="inputC" value="6" step="any" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                <input type="number" id="inputC" value="6" step="any" inputmode="decimal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono text-base focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
                 <div class="flex flex-col gap-1">
                   <button onclick="adjust('inputC', 1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">+</button>
                   <button onclick="adjust('inputC', -1)" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-300 cursor-pointer">-</button>
@@ -179,7 +200,7 @@
             </div>
           </div>
 
-          <!-- 经典中考 6 大常考题型一键填入 -->
+          <!-- 经典题型一键填入 -->
           <div class="pt-2 border-t border-slate-800 space-y-2">
             <span class="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
               <i data-lucide="book-open" class="w-3.5 h-3.5 text-indigo-400"></i> 中考常考 6 大经典题型一键测试：
@@ -210,15 +231,15 @@
                 <span class="text-[11px] text-slate-400 font-mono">x² - 9 = 0</span>
               </button>
 
-              <button onclick="setParams(-1, 2, -5)" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/50 p-2.5 rounded-xl text-slate-300 transition cursor-pointer">
-                <span class="text-rose-300 font-bold block">6. 负系数且无实根</span>
-                <span class="text-[11px] text-slate-400 font-mono">-x² + 2x - 5 = 0</span>
+              <button onclick="setParams(1, 2, 5)" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/50 p-2.5 rounded-xl text-slate-300 transition cursor-pointer">
+                <span class="text-rose-300 font-bold block">6. 负判别式 (复数虚根)</span>
+                <span class="text-[11px] text-slate-400 font-mono">x² + 2x + 5 = 0</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- 二次函数图像抛物线小画板 -->
+        <!-- 二次函数图像抛物线小画板 (高分屏高清适配) -->
         <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
           <div class="flex items-center justify-between">
             <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
@@ -269,7 +290,7 @@
             </div>
 
             <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
-              <span class="text-xs text-slate-400 block font-medium">最终解 (精确根号/最简分数)</span>
+              <span class="text-xs text-slate-400 block font-medium">最终解 (精确根式/虚数根)</span>
               <div id="rootsValue" class="text-sm font-bold text-white font-mono mt-1 min-h-[24px] flex items-center justify-center">-</div>
             </div>
           </div>
@@ -279,15 +300,16 @@
         <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
             <h3 class="font-bold text-sm text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <i data-lucide="list-ordered" class="w-4 h-4 text-indigo-400"></i> 中考标准解题推导步骤
+              <i data-lucide="list-ordered" class="w-4 h-4 text-indigo-400"></i> 解题推导步骤与性质分析
             </h3>
 
             <!-- 方法切换按钮 -->
-            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
+            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 flex-wrap">
               <button onclick="switchMethod('formula')" id="tabFormula" class="text-xs px-3 py-1 rounded-md font-semibold bg-indigo-600 text-white transition cursor-pointer">公式法</button>
               <button onclick="switchMethod('square')" id="tabSquare" class="text-xs px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition cursor-pointer">配方法</button>
               <button onclick="switchMethod('factor')" id="tabFactor" class="text-xs px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition cursor-pointer">十字相乘法</button>
               <button onclick="switchMethod('special')" id="tabSpecial" class="text-xs px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition cursor-pointer">秒杀特技</button>
+              <button onclick="switchMethod('function')" id="tabFunction" class="text-xs px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition cursor-pointer">抛物线性质全景</button>
             </div>
           </div>
 
@@ -303,6 +325,9 @@
           <!-- 特殊秒杀法 (开平方/提公因式) -->
           <div id="methodSpecial" class="space-y-3 hidden"></div>
 
+          <!-- 二次函数全景性质看板 -->
+          <div id="methodFunction" class="space-y-3 hidden"></div>
+
           <!-- 韦达定理验算 -->
           <div class="mt-6 pt-4 border-t border-slate-800 space-y-2 bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
             <div class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
@@ -315,7 +340,39 @@
       </div>
     </div>
 
-    <!-- 知识扩展与初中解题秘籍 (SEO 核心长尾高权重文章) -->
+    <!-- 逆向反求方程新板块 (针对中考常考题型：已知两根求方程) -->
+    <section class="bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="arrow-left-right" class="w-5 h-5 text-indigo-400"></i> 韦达定理逆应用：已知两根反求方程
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">中考热门压轴基础：输入已知两根 x₁ 与 x₂，一键推导还原标准一元二次方程！</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+        <div class="sm:col-span-4">
+          <label class="block text-xs text-slate-400 mb-1">第一个根 x₁</label>
+          <input type="number" id="reverseX1" value="2" step="any" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-indigo-500">
+        </div>
+        <div class="sm:col-span-4">
+          <label class="block text-xs text-slate-400 mb-1">第二个根 x₂</label>
+          <input type="number" id="reverseX2" value="3" step="any" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-indigo-500">
+        </div>
+        <div class="sm:col-span-4 self-end">
+          <button onclick="calculateReverseEquation()" class="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center justify-center gap-1.5">
+            <i data-lucide="play" class="w-3.5 h-3.5"></i> 反向还原一元二次方程
+          </button>
+        </div>
+      </div>
+
+      <div id="reverseResultBox" class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-2">
+        <!-- 默认展示 x1=2, x2=3 -->
+      </div>
+    </section>
+
+    <!-- 知识扩展与初中解题秘籍 -->
     <section class="bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
       <div class="border-b border-slate-800 pb-4">
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -332,7 +389,7 @@
           <ul class="list-disc pl-4 space-y-1 text-slate-400">
             <li><strong>当 Δ &gt; 0 时</strong>：方程有两个不相等的实数根，抛物线与 X 轴有两个交点。</li>
             <li><strong>当 Δ = 0 时</strong>：方程有两个相等的实数根（重根），抛物线顶点恰好在 X 轴上。</li>
-            <li><strong>当 Δ &lt; 0 时</strong>：初中实数范围内方程无解，抛物线与 X 轴无交点（高中数学拓展为共轭虚根）。</li>
+            <li><strong>当 Δ &lt; 0 时</strong>：初中实数范围内方程无解，抛物线与 X 轴无交点；在高中复数集内有一对共轭虚根。</li>
           </ul>
         </div>
 
@@ -343,7 +400,7 @@
           <ul class="list-disc pl-4 space-y-1 text-slate-400">
             <li><strong>缺少一次项 (b=0)</strong>：优先采用【直接开平方法】，如 x² = 9 ➔ x = ±3。</li>
             <li><strong>缺少常数项 (c=0)</strong>：优先采用【提公因式法】，如 x(x - 5) = 0 ➔ x₁=0, x₂=5。</li>
-            <li><strong>常规题型优先十字相乘</strong>：能凑出整数或有理数十字相乘的题目，速度最快、不易算错。</li>
+            <li><strong>常规题型优先十字相乘</strong>：能凑出十字相乘因式分解的题目，速度最快、不易算错。</li>
             <li><strong>通用兜底万能钥匙</strong>：任何有解的题目，代入【公式法】求根公式百分之百解出。</li>
           </ul>
         </div>
@@ -351,15 +408,29 @@
     </section>
   </main>
 
-  <!-- 底部版权 -->
-  <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500 space-y-1">
-    <div>一元二次方程求根计算器 · 专为初中生与家长打造的标准公式解题套件</div>
+  <!-- 底部版权与站内工具导航 (对标 imathtool 丰富内链) -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8 px-4 sm:px-6 text-center text-xs text-slate-500 space-y-4">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-4 text-slate-400">
+      <span class="text-slate-500 font-semibold">相关初高中代数工具导航：</span>
+      <span class="hover:text-white transition">一元一次方程</span>
+      <span>·</span>
+      <span class="hover:text-white transition">二元一次方程组</span>
+      <span>·</span>
+      <span class="hover:text-white transition">二次函数顶点式转换</span>
+      <span>·</span>
+      <span class="hover:text-white transition">韦达定理在线验算</span>
+      <span>·</span>
+      <span class="hover:text-white transition">算术平方根化简</span>
+    </div>
+
+    <div>一元二次方程求根计算器 · 专为初中生、高中生与家长打造的标准数学解题套件</div>
     <div>© 2026 Quadratic Solver (FormulaCalcKit). All rights reserved. 纯静态秒开 · 适配手机端与电脑端</div>
   </footer>
 
   <!-- 核心计算、根号化简与可视化 JS 脚本 -->
   <script>
     let currentMethod = 'formula';
+    let mathScope = 'middle'; // 'middle' (初中中考实数) 或 'high' (高中复数虚根)
     let lastCalculatedData = null;
 
     function initIcons() {
@@ -381,6 +452,94 @@
       }, 2500);
     }
 
+    function setMathScope(scope) {
+      mathScope = scope;
+      const btnM = document.getElementById('btnScopeMiddle');
+      const btnH = document.getElementById('btnScopeHigh');
+      const badge = document.getElementById('modeBadge');
+
+      if (scope === 'middle') {
+        btnM.className = 'px-2.5 py-1 rounded-md bg-indigo-600 text-white transition cursor-pointer';
+        btnH.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition cursor-pointer';
+        badge.innerText = '初中中考模式';
+        badge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+        showToast('已切换为【初中中考规范模式】（实数范围）');
+      } else {
+        btnH.className = 'px-2.5 py-1 rounded-md bg-indigo-600 text-white transition cursor-pointer';
+        btnM.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition cursor-pointer';
+        badge.innerText = '高中复数模式';
+        badge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30';
+        showToast('已切换为【高中复数域拓展模式】（支持虚数根 i）');
+      }
+      calculate();
+    }
+
+    function resetCalculator() {
+      document.getElementById('inputA').value = '1';
+      document.getElementById('inputB').value = '0';
+      document.getElementById('inputC').value = '0';
+      document.getElementById('smartInput').value = '';
+      calculate();
+      showToast('计算器已重置清空');
+    }
+
+    // 智能整式方程一键识别与解析
+    function handleSmartParse() {
+      const input = document.getElementById('smartInput').value.trim();
+      if (!input) {
+        showToast('请先输入或粘贴整式方程！');
+        return;
+      }
+      const parsed = parseEquationString(input);
+      if (!parsed || (parsed.a === 0 && parsed.b === 0 && parsed.c === 0)) {
+        showToast('未能识别出方程系数，请检查格式如：2x^2 + 3x = 5');
+        return;
+      }
+      document.getElementById('inputA').value = parsed.a;
+      document.getElementById('inputB').value = parsed.b;
+      document.getElementById('inputC').value = parsed.c;
+      calculate();
+      showToast(`智能提取成功：a=${parsed.a}, b=${parsed.b}, c=${parsed.c}`);
+    }
+
+    function parseEquationString(input) {
+      if (!input) return null;
+      let str = input.replace(/\s+/g, '').replace(/²/g, '^2');
+      let left = str, right = '0';
+      if (str.includes('=')) {
+        const parts = str.split('=');
+        left = parts[0];
+        right = parts[1] || '0';
+      }
+
+      function parseSide(expr) {
+        let a = 0, b = 0, c = 0;
+        const re = /([+-]?[^-+]+)/g;
+        const matches = expr.match(re);
+        if (!matches) return { a, b, c };
+        for (let term of matches) {
+          if (term.includes('x^2')) {
+            let coeff = term.replace('x^2', '');
+            if (coeff === '' || coeff === '+') a += 1;
+            else if (coeff === '-') a -= 1;
+            else a += parseFloat(coeff) || 0;
+          } else if (term.includes('x')) {
+            let coeff = term.replace('x', '');
+            if (coeff === '' || coeff === '+') b += 1;
+            else if (coeff === '-') b -= 1;
+            else b += parseFloat(coeff) || 0;
+          } else {
+            c += parseFloat(term) || 0;
+          }
+        }
+        return { a, b, c };
+      }
+
+      const lp = parseSide(left);
+      const rp = parseSide(right);
+      return { a: lp.a - rp.a, b: lp.b - rp.b, c: lp.c - rp.c };
+    }
+
     function adjust(inputId, deltaVal) {
       const el = document.getElementById(inputId);
       const val = parseFloat(el.value) || 0;
@@ -397,7 +556,7 @@
 
     function switchMethod(method) {
       currentMethod = method;
-      const tabs = ['formula', 'square', 'factor', 'special'];
+      const tabs = ['formula', 'square', 'factor', 'special', 'function'];
       tabs.forEach(t => {
         const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
         const div = document.getElementById('method' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -412,7 +571,6 @@
       });
     }
 
-    // 求最大公约数 (处理浮点数边界)
     function gcd(x, y) {
       x = Math.round(Math.abs(x));
       y = Math.round(Math.abs(y));
@@ -424,10 +582,8 @@
       return x || 1;
     }
 
-    // 格式化为最简分数文本
     function formatFraction(num, den) {
-      if (den === 0) return '0';
-      if (num === 0) return '0';
+      if (den === 0 || num === 0) return '0';
       if (den < 0) { num = -num; den = -den; }
       const g = gcd(num, den);
       num /= g;
@@ -436,10 +592,8 @@
       return `${num}/${den}`;
     }
 
-    // 格式化为 KaTeX 分数语法
     function formatFractionTeX(num, den) {
-      if (den === 0) return '0';
-      if (num === 0) return '0';
+      if (den === 0 || num === 0) return '0';
       let isNeg = (num < 0 && den > 0) || (num > 0 && den < 0);
       num = Math.abs(num);
       den = Math.abs(den);
@@ -447,10 +601,9 @@
       num /= g;
       den /= g;
       if (den === 1) return isNeg ? `-${num}` : `${num}`;
-      return isNeg ? `-\\frac{${num}}{${den}}` : `\\frac{${num}}{${den}}`;
+      return isNeg ? `-\frac{${num}}{${den}}` : `\frac{${num}}{${den}}`;
     }
 
-    // 化简二次根式：√delta = factor * √remainder
     function simplifySurd(delta) {
       if (delta <= 0) return { factor: 0, remainder: 0 };
       let factor = 1;
@@ -466,7 +619,23 @@
       return { factor, remainder };
     }
 
-    // 十字相乘因式分解探测算法 (寻找 a1*a2=a, c1*c2=c, a1*c2 + a2*c1 = b)
+    function getDecimals(n) {
+      const s = n.toString();
+      const idx = s.indexOf('.');
+      return idx === -1 ? 0 : s.length - idx - 1;
+    }
+
+    function getNormalizedIntegers(a, b, c) {
+      const maxDec = Math.max(getDecimals(a), getDecimals(b), getDecimals(c));
+      if (maxDec === 0) return { a, b, c, mult: 1, g: 1, isNormalized: false };
+      const mult = Math.pow(10, maxDec);
+      let ia = Math.round(a * mult);
+      let ib = Math.round(b * mult);
+      let ic = Math.round(c * mult);
+      const g = gcd(gcd(ia, ib), ic);
+      return { a: ia / g, b: ib / g, c: ic / g, mult, g, isNormalized: true };
+    }
+
     function findCrossMultiplication(a, b, c) {
       if (!Number.isInteger(a) || !Number.isInteger(b) || !Number.isInteger(c)) return null;
       let sign = 1;
@@ -518,33 +687,14 @@
       return null;
     }
 
-    
-    function getDecimals(n) {
-      const s = n.toString();
-      const idx = s.indexOf('.');
-      return idx === -1 ? 0 : s.length - idx - 1;
-    }
-
-    function getNormalizedIntegers(a, b, c) {
-      const maxDec = Math.max(getDecimals(a), getDecimals(b), getDecimals(c));
-      if (maxDec === 0) return { a, b, c, mult: 1, g: 1, isNormalized: false };
-      const mult = Math.pow(10, maxDec);
-      let ia = Math.round(a * mult);
-      let ib = Math.round(b * mult);
-      let ic = Math.round(c * mult);
-      const g = gcd(gcd(ia, ib), ic);
-      return { a: ia / g, b: ib / g, c: ic / g, mult, g, isNormalized: true };
-    }
-
     function calculate() {
       const a = parseFloat(document.getElementById('inputA').value);
       const b = parseFloat(document.getElementById('inputB').value);
       const c = parseFloat(document.getElementById('inputC').value);
 
-      // 顶部 KaTeX 渲染
       if (window.katex) {
-        katex.render("ax^2 + bx + c = 0 \\quad (a \\neq 0)", document.getElementById('headerEqKaTeX'), { throwOnError: false });
-        katex.render("x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}", document.getElementById('headerFormulaKaTeX'), { throwOnError: false });
+        katex.render("ax^2 + bx + c = 0 \quad (a \neq 0)", document.getElementById('headerEqKaTeX'), { throwOnError: false });
+        katex.render("x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}", document.getElementById('headerFormulaKaTeX'), { throwOnError: false });
       }
 
       if (isNaN(a) || isNaN(b) || isNaN(c)) {
@@ -554,7 +704,7 @@
 
       // 退化为一元一次方程处理 (a = 0)
       if (a === 0) {
-        document.getElementById('equationDisplay').innerText = `${b}x + ${c} = 0`;
+        document.getElementById('equationDisplay').innerText = `${b}x ${c >= 0 ? '+ ' + c : '- ' + Math.abs(c)} = 0`;
         document.getElementById('deltaValue').innerText = '不适用 (a=0)';
         document.getElementById('rootsStatus').innerText = '非二次方程 (退化为一元一次方程)';
         document.getElementById('rootsStatus').className = 'text-xs font-bold text-amber-400 block mt-1';
@@ -582,22 +732,12 @@
             </div>`;
         }
 
-        // 清理并更新其它 Tab，避免旧状态残留
-        document.getElementById('methodSquare').innerHTML = `
-          <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">
-            提示：一元一次方程不存在二次项，中考考试规范中不适用【配方法】。
-          </div>`;
-        document.getElementById('methodFactor').innerHTML = `
-          <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">
-            提示：一元一次方程为一次多项式，不适用二次三项式因式分解。
-          </div>`;
-        document.getElementById('methodSpecial').innerHTML = `
-          <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">
-            解法：通过简单移项与除法即可秒解一元一次方程。
-          </div>`;
+        document.getElementById('methodSquare').innerHTML = `<div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">提示：一元一次方程不具备二次项，不适用【配方法】。</div>`;
+        document.getElementById('methodFactor').innerHTML = `<div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">提示：一元一次方程为一次多项式，不适用二次三项式因式分解。</div>`;
+        document.getElementById('methodSpecial').innerHTML = `<div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">解法：通过简单移项与除法即可秒解一元一次方程。</div>`;
+        document.getElementById('methodFunction').innerHTML = `<div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-400 font-mono">当前为一次函数直线 y = ${b}x + ${c}，不具备抛物线极值与对称轴性质。</div>`;
         document.getElementById('vietaBox').innerHTML = `<div class="text-slate-500">一元一次方程仅有一个根，不适用一元二次方程韦达定理。</div>`;
 
-        // 绘制一次函数直线
         drawLinearLine(b, c);
         lastCalculatedData = { a, b, c, delta: null, status: '退化为一元一次方程', roots: linearXStr };
         initIcons();
@@ -623,7 +763,6 @@
         document.getElementById('equationDisplay').innerText = eqTeX;
       }
 
-      // 判别式 Δ
       const delta = b * b - 4 * a * c;
       document.getElementById('deltaValue').innerText = delta;
 
@@ -632,14 +771,11 @@
       let rootsDisplayHtml = '';
       let isRational = false;
 
-      // 公式法推导
       let formulaHtml = '';
-      // 配方法推导
       let squareHtml = '';
-      // 因式分解法推导
       let factorHtml = '';
-      // 特殊秒杀法
       let specialHtml = '';
+      let functionHtml = '';
 
       // 步骤 1 通用系数与判别式
       formulaHtml += `
@@ -672,7 +808,6 @@
           const frac2 = formatFraction(-b - sqrtDelta, 2 * a);
           rootsDisplayHtml = `<span class="text-emerald-400 font-bold">x₁ = ${frac1}, x₂ = ${frac2}</span>`;
         } else {
-          // 最简二次根式化简
           const surd = simplifySurd(delta);
           const divisor = 2 * a;
           const commonGcd = gcd(gcd(b, surd.factor), divisor);
@@ -695,7 +830,8 @@
               ? `${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}`
               : `\\frac{${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}}}{${simplifiedDiv}}`;
           }
-          rootsDisplayHtml = `<span class="text-amber-300 font-bold" id="surdTeXBox"></span>` <span class="text-slate-400 text-xs ml-1.5">(≈ ${r1}, ${r2})</span>`;
+
+          rootsDisplayHtml = `<span class="text-amber-300 font-bold" id="surdTeXBox"></span> <span class="text-slate-400 text-xs ml-1.5">(≈ ${r1}, ${r2})</span>`;
           setTimeout(() => {
             const el = document.getElementById('surdTeXBox');
             if (el && window.katex) {
@@ -708,11 +844,11 @@
           <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-2">
             <div class="text-indigo-300 font-bold flex items-center gap-1.5">
               <span class="w-4 h-4 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-[10px]">2</span>
-              代入中考万能求根公式求解
+              代入求根公式求解
             </div>
-            <div class="text-slate-300 pl-4 border-l-2 border-indigo-500/40">因为 Δ = ${delta} > 0，所以方程有两个不相等的实数根：</div>
+            <div class="text-slate-300 pl-4 border-l-2 border-indigo-500/40">因为 Δ = ${delta} > 0，方程有两个不相等的实数根：</div>
             <div class="text-slate-200 pl-4 border-l-2 border-indigo-500/40 font-bold">
-              x = \\frac{-b \\pm \\sqrt{Δ}}{2a} = \\frac{-(${b}) \\pm \\sqrt{${delta}}}{2 × (${a})}
+              x = \frac{-b \pm \sqrt{Δ}}{2a} = \frac{-(${b}) \pm \sqrt{${delta}}}{2 × (${a})}
             </div>
             <div class="text-emerald-400 pl-4 border-l-2 border-indigo-500/40 font-bold">
               解得：x₁ = ${isRational ? formatFraction(-b + sqrtDelta, 2*a) : r1}，x₂ = ${isRational ? formatFraction(-b - sqrtDelta, 2*a) : r2}
@@ -720,31 +856,43 @@
           </div>
         `;
 
-        // 配方法推导 (严格中考标准分数呈现)
-        const b_over_a = b / a;
-        const c_over_a = c / a;
+        // 配方法推导
         const b_over_2a_frac = formatFraction(b, 2 * a);
-        const b_over_2a_tex = formatFractionTeX(b, 2 * a);
         const delta_over_4a2_frac = formatFraction(delta, 4 * a * a);
 
-        squareHtml = `
-          <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-3">
-            <div class="text-indigo-300 font-bold flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-indigo-400"></span>【配方法中考标准步骤】
+        if (b === 0) {
+          squareHtml = `
+            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-3">
+              <div class="text-indigo-300 font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-400"></span>【直接开平方 / 配方法中考标准步骤】
+              </div>
+              <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">1. 常数项移项：${a !== 1 ? `${a}x²` : 'x²'} = ${-c}</div>
+              ${a !== 1 ? `<div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">2. 两边除以 a：x² = ${formatFraction(-c, a)}</div>` : ''}
+              <div class="text-emerald-400 pl-3 border-l-2 border-indigo-500/40 font-bold">
+                 3. 两边直接开平方解得：x₁ = ${isRational ? formatFraction(Math.sqrt(delta), 2*a) : r1}，x₂ = ${isRational ? formatFraction(-Math.sqrt(delta), 2*a) : r2}
+              </div>
             </div>
-            ${a !== 1 ? `<div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">1. 二次项系数化为 1 (两边除以 ${a})：x² ${formatFraction(b, a).startsWith('-') ? '- ' + formatFraction(-b, a) : '+ ' + formatFraction(b, a)}x ${formatFraction(c, a).startsWith('-') ? '- ' + formatFraction(-c, a) : '+ ' + formatFraction(c, a)} = 0</div>` : '<div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">1. 二次项系数已经为 1。</div>'}
-            <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">2. 移项 (常数项移到右边)：x² ${formatFraction(b, a).startsWith('-') ? '- ' + formatFraction(-b, a) : '+ ' + formatFraction(b, a)}x = ${formatFraction(-c, a)}</div>
-            <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">3. 配方 (两边加上一次项系数一半的平方)：</div>
-            <div class="text-indigo-300 pl-3 border-l-2 border-indigo-500/40 font-bold">
-               (x ${b_over_2a_frac.startsWith('-') ? '- ' + b_over_2a_frac.replace('-', '') : '+ ' + b_over_2a_frac})² = ${delta_over_4a2_frac}
+          `;
+        } else {
+          squareHtml = `
+            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-3">
+              <div class="text-indigo-300 font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-400"></span>【配方法中考标准步骤】
+              </div>
+              ${a !== 1 ? `<div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">1. 二次项系数化为 1 (两边除以 ${a})：x² ${formatFraction(b, a).startsWith('-') ? '- ' + formatFraction(-b, a) : '+ ' + formatFraction(b, a)}x ${formatFraction(c, a).startsWith('-') ? '- ' + formatFraction(-c, a) : '+ ' + formatFraction(c, a)} = 0</div>` : '<div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">1. 二次项系数已经为 1。</div>'}
+              <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">2. 移项 (常数项移到右边)：x² ${formatFraction(b, a).startsWith('-') ? '- ' + formatFraction(-b, a) : '+ ' + formatFraction(b, a)}x = ${formatFraction(-c, a)}</div>
+              <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">3. 配方 (两边加上一次项系数一半的平方)：</div>
+              <div class="text-indigo-300 pl-3 border-l-2 border-indigo-500/40 font-bold">
+                 (x ${b_over_2a_frac.startsWith('-') ? '- ' + b_over_2a_frac.replace('-', '') : '+ ' + b_over_2a_frac})² = ${delta_over_4a2_frac}
+              </div>
+              <div class="text-emerald-400 pl-3 border-l-2 border-indigo-500/40 font-bold">
+                 4. 两边开平方解得：x₁ = ${isRational ? formatFraction(-b + sqrtDelta, 2*a) : r1}，x₂ = ${isRational ? formatFraction(-b - sqrtDelta, 2*a) : r2}
+              </div>
             </div>
-            <div class="text-emerald-400 pl-3 border-l-2 border-indigo-500/40 font-bold">
-               4. 两边开平方解得：x₁ = ${isRational ? formatFraction(-b + sqrtDelta, 2*a) : r1}，x₂ = ${isRational ? formatFraction(-b - sqrtDelta, 2*a) : r2}
-            </div>
-          </div>
-        `;
+          `;
+        }
 
-        // 十字相乘法推导
+        // 十字相乘法推导 (采用归一化整数算法)
         const norm = getNormalizedIntegers(a, b, c);
         const cross = findCrossMultiplication(norm.a, norm.b, norm.c);
         if (cross) {
@@ -759,6 +907,7 @@
               <div class="text-indigo-300 font-bold flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-emerald-400"></span>【十字相乘因式分解法步骤】
               </div>
+              ${norm.isNormalized ? `<div class="text-amber-400 pl-3 border-l-2 border-amber-500/40">原方程含小数系数，两边同乘 ${norm.mult} 化简为整数方程：${norm.a}x² ${norm.b >= 0 ? '+ ' + norm.b : '- ' + Math.abs(norm.b)}x ${norm.c >= 0 ? '+ ' + norm.c : '- ' + Math.abs(norm.c)} = 0</div>` : ''}
               <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">十字相乘拆项分析：</div>
               <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-center text-xs space-y-1">
                 <div class="flex justify-center items-center gap-12 font-bold text-indigo-300">
@@ -774,7 +923,6 @@
               <div class="text-indigo-300 pl-3 border-l-2 border-indigo-500/40 font-bold">
                 原方程分解为：${sign === -1 ? '- ' : ''}(${a1Str} ${c1Str})(${a2Str} ${c2Str}) = 0
               </div>
-              <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40">即：${a1Str} ${c1Str} = 0 或 ${a2Str} ${c2Str} = 0</div>
               <div class="text-emerald-400 pl-3 border-l-2 border-indigo-500/40 font-bold">
                 解得：x₁ = ${formatFraction(-c1, a1)}，x₂ = ${formatFraction(-c2, a2)}
               </div>
@@ -816,7 +964,7 @@
             </div>
             <div class="text-slate-300 pl-4 border-l-2 border-indigo-500/40">因为 Δ = 0，方程有两个相等的实数根：</div>
             <div class="text-slate-200 pl-4 border-l-2 border-indigo-500/40 font-bold">
-              x = \\frac{-b}{2a} = \\frac{-(${b})}{2 × (${a})} = ${rFrac}
+              x = \frac{-b}{2a} = \frac{-(${b})}{2 × (${a})} = ${rFrac}
             </div>
             <div class="text-emerald-400 pl-4 border-l-2 border-indigo-500/40 font-bold">
               解得：x₁ = x₂ = ${rFrac}
@@ -833,7 +981,8 @@
           </div>
         `;
 
-        const cross = findCrossMultiplication(a, b, c);
+        const norm = getNormalizedIntegers(a, b, c);
+        const cross = findCrossMultiplication(norm.a, norm.b, norm.c);
         if (cross) {
           const { a1, c1 } = cross;
           const a1Str = a1 === 1 ? 'x' : `${a1}x`;
@@ -849,28 +998,85 @@
           factorHtml = squareHtml;
         }
       } else {
-        statusStr = '无实数根 (Δ < 0)';
-        document.getElementById('rootsStatus').className = 'text-xs font-bold text-rose-400 block mt-1';
-        document.getElementById('statusIndicator').className = 'w-2.5 h-2.5 rounded-full bg-rose-400';
-        rootsDisplayHtml = `<span class="text-rose-400 font-bold">实数范围内无解</span>`;
+        // delta < 0
+        const absDelta = Math.abs(delta);
+        const surd = simplifySurd(absDelta);
+        const divisor = 2 * a;
+        const commonGcd = gcd(gcd(b, surd.factor), divisor);
+        let simplifiedB = -b / commonGcd;
+        let simplifiedFactor = surd.factor / commonGcd;
+        let simplifiedDiv = divisor / commonGcd;
+        if (simplifiedDiv < 0) {
+          simplifiedB = -simplifiedB;
+          simplifiedDiv = -simplifiedDiv;
+        }
+        const factorStr = simplifiedFactor === 1 ? '' : simplifiedFactor;
+        let complexTeX = '';
+        if (simplifiedB === 0) {
+          complexTeX = simplifiedDiv === 1 
+            ? `\\pm ${factorStr}\\sqrt{${surd.remainder}} i`
+            : `\\pm \\frac{${factorStr}\\sqrt{${surd.remainder}}}{${simplifiedDiv}} i`;
+        } else {
+          complexTeX = simplifiedDiv === 1 
+            ? `${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}} i`
+            : `\\frac{${simplifiedB} \\pm ${factorStr}\\sqrt{${surd.remainder}} i}{${simplifiedDiv}}`;
+        }
 
-        formulaHtml += `
-          <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-2">
-            <div class="text-rose-400 font-bold flex items-center gap-1.5">
-              判别式判断结论
+        const realPart = (-b / (2 * a)).toFixed(4);
+        const imagPart = (Math.sqrt(absDelta) / Math.abs(2 * a)).toFixed(4);
+
+        if (mathScope === 'high') {
+          // 高中复数模式
+          statusStr = '无实数根 · 存在一对共轭虚根 (复数域)';
+          document.getElementById('rootsStatus').className = 'text-xs font-bold text-indigo-400 block mt-1';
+          document.getElementById('statusIndicator').className = 'w-2.5 h-2.5 rounded-full bg-indigo-400';
+          rootsDisplayHtml = `<span class="text-indigo-300 font-bold" id="complexTeXBox"></span> <span class="text-slate-400 text-xs ml-1.5">(≈ ${realPart} ± ${imagPart}i)</span>`;
+          setTimeout(() => {
+            const el = document.getElementById('complexTeXBox');
+            if (el && window.katex) {
+              katex.render(complexTeX, el, { throwOnError: false });
+            }
+          }, 10);
+
+          formulaHtml += `
+            <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-2">
+              <div class="text-indigo-400 font-bold flex items-center gap-1.5">
+                高中复数公式法求解 (i² = -1)
+              </div>
+              <div class="text-slate-300 pl-4 border-l-2 border-indigo-500/40">因为 Δ = ${delta} < 0，在复数域内 √Δ = √(${absDelta} × (-1)) = √${absDelta} · i</div>
+              <div class="text-slate-200 pl-4 border-l-2 border-indigo-500/40 font-bold">
+                x = \frac{-b \pm \sqrt{|Δ|}i}{2a} = \frac{-(${b}) \pm \sqrt{${absDelta}}i}{2 × (${a})}
+              </div>
+              <div class="text-indigo-300 pl-4 border-l-2 border-indigo-500/40 font-bold">
+                解得一对共轭虚根：x₁ = ${realPart} + ${imagPart}i，x₂ = ${realPart} - ${imagPart}i
+              </div>
             </div>
-            <div class="text-slate-300 pl-4 border-l-2 border-rose-500/40">因为 Δ = ${delta} < 0，在初中实数范围内，负数不能开平方。</div>
-            <div class="text-rose-300 pl-4 border-l-2 border-rose-500/40 font-bold">初中中考标准答题结论：此方程在实数范围内无解。</div>
-            <div class="text-slate-500 pl-4 text-[11px]">（高中数学拓展：在复数集内有一对共轭虚根）</div>
-          </div>
-        `;
+          `;
+        } else {
+          // 初中中考模式
+          statusStr = '无实数根 (Δ < 0)';
+          document.getElementById('rootsStatus').className = 'text-xs font-bold text-rose-400 block mt-1';
+          document.getElementById('statusIndicator').className = 'w-2.5 h-2.5 rounded-full bg-rose-400';
+          rootsDisplayHtml = `<span class="text-rose-400 font-bold">实数范围内无解</span>`;
+
+          formulaHtml += `
+            <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-2">
+              <div class="text-rose-400 font-bold flex items-center gap-1.5">
+                初中中考判别式判定结论
+              </div>
+              <div class="text-slate-300 pl-4 border-l-2 border-rose-500/40">因为 Δ = ${delta} < 0，在初中实数范围内负数不能开平方。</div>
+              <div class="text-rose-300 pl-4 border-l-2 border-rose-500/40 font-bold">中考标准结论：此方程在实数范围内无解。</div>
+              <div class="text-indigo-300 pl-4 text-[11px]">（提示：点击右上角【高中复数域】开关，可查看复数共轭虚根推导与解）</div>
+            </div>
+          `;
+        }
+
         squareHtml = formulaHtml;
-        factorHtml = `<div class="p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs text-slate-400 font-mono">实数范围内无法因式分解。</div>`;
+        factorHtml = `<div class="p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs text-slate-400 font-mono">在实数范围内无法因式分解。</div>`;
       }
 
-      // 特殊秒杀法 (b = 0 直接开平方法 / c = 0 提公因式法)
+      // 特殊秒杀法
       if (b === 0 && delta >= 0) {
-        const val = -c / a;
         specialHtml = `
           <div class="p-4 bg-sky-950/20 border border-sky-500/30 rounded-xl text-xs font-mono space-y-2">
             <div class="text-sky-300 font-bold flex items-center gap-1.5">
@@ -878,7 +1084,7 @@
             </div>
             <div class="text-slate-300 pl-3 border-l-2 border-sky-500/40">1. 常数项移项：${a}x² = ${-c}</div>
             <div class="text-slate-300 pl-3 border-l-2 border-sky-500/40">2. 两边除以 a：x² = ${formatFraction(-c, a)}</div>
-            <div class="text-emerald-400 pl-3 border-l-2 border-sky-500/40 font-bold">3. 两边直接开平方：x = ±√${formatFraction(-c, a)} = ±${r1}</div>
+            <div class="text-emerald-400 pl-3 border-l-2 border-sky-500/40 font-bold">3. 两边直接开平方：x = ±√${formatFraction(-c, a)}</div>
           </div>
         `;
       } else if (c === 0) {
@@ -901,12 +1107,50 @@
         `;
       }
 
+      // 二次函数性质全景分析 (全新特色模块)
+      const axisX = formatFraction(-b, 2 * a);
+      const vertexY = formatFraction(4 * a * c - b * b, 4 * a);
+      functionHtml = `
+        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs font-mono space-y-3">
+          <div class="text-sky-300 font-bold flex items-center gap-1.5">
+            <i data-lucide="activity" class="w-4 h-4 text-sky-400"></i> 二次函数 y = ${a}x² + (${b})x + (${c}) 核心性质全景：
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-300">
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 开口方向：</span>
+              <strong class="${a > 0 ? 'text-emerald-400' : 'text-rose-400'}">${a > 0 ? '开口向上 (a > 0)' : '开口向下 (a < 0)'}</strong>
+            </div>
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 对称轴方程：</span>
+              <strong class="text-white">直线 x = ${axisX}</strong>
+            </div>
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 顶点坐标：</span>
+              <strong class="text-sky-300">(${axisX}, ${vertexY})</strong>
+            </div>
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 极值性质：</span>
+              <strong class="text-amber-300">当 x = ${axisX} 时，y${a > 0 ? '_{\\min}' : '_{\\max}'} = ${vertexY}</strong>
+            </div>
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 与 Y 轴截距：</span>
+              <strong class="text-white">(0, ${c})</strong>
+            </div>
+            <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+              <span class="text-slate-500 block">● 与 X 轴交点个数：</span>
+              <strong class="text-white">${delta > 0 ? '2 个不同交点' : (delta === 0 ? '1 个相切交点' : '0 个交点 (无实根)')}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+
       document.getElementById('rootsStatus').innerText = statusStr;
       document.getElementById('rootsValue').innerHTML = rootsDisplayHtml;
       document.getElementById('methodFormula').innerHTML = formulaHtml;
       document.getElementById('methodSquare').innerHTML = squareHtml;
       document.getElementById('methodFactor').innerHTML = factorHtml;
       document.getElementById('methodSpecial').innerHTML = specialHtml;
+      document.getElementById('methodFunction').innerHTML = functionHtml;
 
       // 韦达定理验算
       if (delta >= 0 && r1 !== null) {
@@ -920,27 +1164,34 @@
         document.getElementById('vietaBox').innerHTML = `<div class="text-slate-500">实数范围内无解，无需验证实数韦达定理。</div>`;
       }
 
-      // 绘制自适应二次函数抛物线图像
       drawAdaptiveParabola(a, b, c, r1, r2, delta);
       lastCalculatedData = { a, b, c, delta, status: statusStr, roots: rootsDisplayHtml.replace(/<[^>]+>/g, '').trim() };
       initIcons();
     }
 
-    // 自适应抛物线 Canvas 绘制算法
     function drawAdaptiveParabola(a, b, c, r1, r2, delta) {
       const canvas = document.getElementById('parabolaCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      const w = canvas.width;
-      const h = canvas.height;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const displayW = rect.width || 500;
+      const displayH = rect.height || 220;
+
+      if (canvas.width !== Math.round(displayW * dpr)) {
+        canvas.width = Math.round(displayW * dpr);
+        canvas.height = Math.round(displayH * dpr);
+      }
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      const w = displayW;
+      const h = displayH;
       ctx.clearRect(0, 0, w, h);
 
-      // 计算顶点
       const vx = -b / (2 * a);
       const vy = (4 * a * c - b * b) / (4 * a);
       document.getElementById('vertexInfo').innerText = `顶点: (${vx.toFixed(2)}, ${vy.toFixed(2)})`;
 
-      // 动态自适应比例：根据根和顶点的大小，保证全部画在画布内
       let maxAbsX = Math.max(Math.abs(vx) + 2, 5);
       if (delta >= 0 && r1 !== null && r2 !== null) {
         maxAbsX = Math.max(maxAbsX, Math.abs(r1) + 2, Math.abs(r2) + 2);
@@ -954,7 +1205,6 @@
       const originX = w / 2;
       const originY = h / 2;
 
-      // 绘制网格线与刻度
       ctx.strokeStyle = '#1e293b';
       ctx.lineWidth = 1;
       const step = Math.max(1, Math.round(maxAbsX / 5));
@@ -967,7 +1217,6 @@
         ctx.stroke();
       }
 
-      // X 轴
       ctx.strokeStyle = '#475569';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -975,13 +1224,11 @@
       ctx.lineTo(w, originY);
       ctx.stroke();
 
-      // Y 轴
       ctx.beginPath();
       ctx.moveTo(originX, 0);
       ctx.lineTo(originX, h);
       ctx.stroke();
 
-      // 对称轴虚线
       ctx.strokeStyle = '#94a3b8';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
@@ -990,9 +1237,8 @@
       ctx.moveTo(vpx, 0);
       ctx.lineTo(vpx, h);
       ctx.stroke();
-      ctx.setLineDash([]); // 还原实线
+      ctx.setLineDash([]);
 
-      // 绘制抛物线曲线
       ctx.strokeStyle = '#6366f1';
       ctx.lineWidth = 2.5;
       ctx.beginPath();
@@ -1012,7 +1258,6 @@
       }
       ctx.stroke();
 
-      // 绘制实数根交点 (橙色)
       if (delta >= 0 && r1 !== null) {
         ctx.fillStyle = '#f97316';
         const p1x = originX + r1 * scale;
@@ -1028,7 +1273,6 @@
         }
       }
 
-      // 绘制顶点 (天蓝色)
       ctx.fillStyle = '#38bdf8';
       const vpy = originY - vy * scale;
       if (vpx >= 0 && vpx <= w && vpy >= 0 && vpy <= h) {
@@ -1036,9 +1280,9 @@
         ctx.arc(vpx, vpy, 5, 0, Math.PI * 2);
         ctx.fill();
       }
+      ctx.restore();
     }
 
-    // 绘制一次函数直线 (a = 0)
     function drawLinearLine(b, c) {
       const canvas = document.getElementById('parabolaCanvas');
       if (!canvas) return;
@@ -1052,7 +1296,6 @@
       const originY = h / 2;
       const scale = 18;
 
-      // X 轴
       ctx.strokeStyle = '#475569';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -1060,13 +1303,11 @@
       ctx.lineTo(w, originY);
       ctx.stroke();
 
-      // Y 轴
       ctx.beginPath();
       ctx.moveTo(originX, 0);
       ctx.lineTo(originX, h);
       ctx.stroke();
 
-      // 绘制直线
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2.5;
       ctx.beginPath();
@@ -1078,7 +1319,6 @@
       ctx.lineTo(w, originY - yRight * scale);
       ctx.stroke();
 
-      // 与 X 轴交点
       if (b !== 0) {
         const rootX = -c / b;
         const px = originX + rootX * scale;
@@ -1089,6 +1329,45 @@
           ctx.fill();
         }
       }
+    }
+
+    // 韦达定理已知两根反求方程
+    function calculateReverseEquation() {
+      const x1 = parseFloat(document.getElementById('reverseX1').value);
+      const x2 = parseFloat(document.getElementById('reverseX2').value);
+      if (isNaN(x1) || isNaN(x2)) {
+        showToast('请输入有效的 x1 和 x2');
+        return;
+      }
+      const sum = x1 + x2;
+      const prod = x1 * x2;
+      const sumFrac = formatFraction(sum, 1);
+      const prodFrac = formatFraction(prod, 1);
+
+      let bVal = -sum;
+      let cVal = prod;
+      let eqStr = 'x²';
+      if (bVal > 0) eqStr += ` + ${bVal === 1 ? '' : bVal}x`;
+      else if (bVal < 0) eqStr += ` - ${bVal === -1 ? '' : Math.abs(bVal)}x`;
+
+      if (cVal > 0) eqStr += ` + ${cVal}`;
+      else if (cVal < 0) eqStr += ` - ${Math.abs(cVal)}`;
+      eqStr += ' = 0';
+
+      const box = document.getElementById('reverseResultBox');
+      box.innerHTML = `
+        <div class="text-indigo-300 font-bold flex items-center gap-1.5">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 推导结果：还原的一元二次方程为 <span class="text-emerald-400 text-sm font-bold ml-1">${eqStr}</span>
+        </div>
+        <div class="text-slate-300 pl-3 border-l-2 border-indigo-500/40 space-y-1">
+          <div>1. 根据韦达定理：两根之和 x₁ + x₂ = ${x1} + (${x2}) = ${sum} = -b/a</div>
+          <div>2. 两根之积 x₁ · x₂ = ${x1} × (${x2}) = ${prod} = c/a</div>
+          <div>3. 令首项系数 a = 1，则 b = -(x₁ + x₂) = ${bVal}，c = x₁ · x₂ = ${cVal}</div>
+          <div class="text-emerald-400 font-bold">4. 故满足条件的一般方程为：${eqStr}</div>
+        </div>
+      `;
+      initIcons();
+      showToast('方程反向还原成功！');
     }
 
     function copySolution() {
@@ -1125,15 +1404,14 @@
       });
     }
 
-    // 绑定实时输入监听
     document.getElementById('inputA').addEventListener('input', calculate);
     document.getElementById('inputB').addEventListener('input', calculate);
     document.getElementById('inputC').addEventListener('input', calculate);
 
-    // 初始化运行
     window.onload = function() {
       initIcons();
       calculate();
+      calculateReverseEquation();
     };
   </script>
 </body>
